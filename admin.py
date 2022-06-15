@@ -1,8 +1,15 @@
+from tkinter import Toplevel, LabelFrame, Label, Entry, Button
+
+
 def admin_login():
     import sys
     import mysql.connector as ms
     import tkinter as tk
     from tkinter import ttk, messagebox
+    import database_code
+
+    database_name = 's_m_s'
+    database_code.database_creation(database_name)
 
     connection = ms.connect(host="localhost", user="root", passwd="Shreyas25%")
     cur = connection.cursor()
@@ -50,7 +57,60 @@ def admin_login():
             .grid(row=0, column=2, padx=5, pady=5)
 
     def p_a_h():
-        pass
+        """Function To Show Submenu Of Physics Assign Homework"""
+        Adder = Toplevel()
+        Adder.title("Assign Homework")
+        Adder.geometry("595x225")
+        frame_a = LabelFrame(Adder, text="Enter Details", padx="20", pady=20, font=("Verdana", 10, "bold"))
+        frame_a.grid(row=0, column=0, padx=10, pady=10)
+
+        def submit():
+            """Function That Takes Value From Screen And Adds It To Database"""
+            # Retrieve Data Entered By User
+            b0 = hw_id.get()
+            b1 = hw_name.get().upper()
+            if len(b0) == 0:
+                response = messagebox.showerror("WARNING!", "Homework id Can't Be Left Empty")
+                Adder.lift()
+                return ()
+            b2 = classes_assigned.get()
+            if len(b1) == 0:
+                response = messagebox.showerror("WARNING!", "Homework Name Can't Be Left Empty")
+                Adder.lift()
+                return ()
+            query = "Insert into assignment values('{}', '{}', {})"\
+            .format(b0, b1, b2)
+            cur.execute(query)
+            connection.commit()
+            Adder.destroy()
+            response = messagebox.showinfo("SUCCESSFUL!", "Record Added Successfully")
+
+        hw_id_label = Label(frame_a, text="Homework id", font=("Comic Sans MS", 10))
+        hw_id_label.grid(row=0, column=0,)
+        hw_name_label = Label(frame_a, text="Homework Name", font=("Comic Sans MS", 10))
+        hw_name_label.grid(row=1, column=0)
+        classes_assigned_label = Label(frame_a, text="Class Assigned", font=("Comic Sans MS", 10))
+        classes_assigned_label.grid(row=2, column=0)
+
+        hw_id = Entry(frame_a, width=15, font=("Century", 10))
+        hw_id.grid(row=0, column=1, pady=(10, 0), padx=5)
+        hw_name = Entry(frame_a, width=15, font=("Century", 10))
+        hw_name.grid(row=1, column=1, padx=5)
+        classes_assigned = Entry(frame_a, width=15, font=("Century", 10))
+        classes_assigned.grid(row=2, column=1, padx=5)
+
+        # Insert Homework id Automatically
+        cur.execute("select hw_id from users")
+        rows = cur.fetchall()
+        if len(rows) == 0:
+            hw_id.insert(0, 1)
+        else:
+            hw_id.insert(0, int(rows[-1][0]) + 1)
+        hw_id.config(state="disabled")
+
+        submit_btn = Button(frame_a, text="Submit", command=submit, width=10, font=("Times New Roman", 12, "bold"))
+        submit_btn.grid(row=4, column=3, sticky=E)
+
 
     def c_a_h():
         pass
