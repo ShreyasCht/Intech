@@ -1,10 +1,13 @@
-import sys
 import mysql.connector as ms
-import tkinter as tk
-from tkinter import *
+# import tkinter as tk
 from tkinter import ttk, messagebox
+from tkinter import *
+import database_code
+import admin
+import student
 
-database_name = 'student_management_system'
+database_name = 's_m_s'
+database_code.database_creation(database_name)
 
 connection = ms.connect(host="localhost", user="root", passwd="Shreyas25%")
 cur = connection.cursor()
@@ -21,9 +24,10 @@ def open_d():
 def main_login():
     def login():
         """Function to log in"""
+        lt = login_type.get()
         root1.destroy()
         open_d()
-        root = tk.Tk()  # Tk is used to create a main window
+        root = Tk()  # Tk is used to create a main window
         root.title("H.C.E.T Syndicate School Portal")
         root.geometry("400x250")
         root['background'] = "#5E889F"  # HexDecimal colour code
@@ -38,10 +42,10 @@ def main_login():
                 if str(ele[0]) == u1 and ele[1] == u2:
                     root.destroy()
                     response = messagebox.showinfo("SUCCESSFUL!", "Logged In Successfully")
-                    if login_type.get() == "Admin":
-                        print('yes')
+                    if lt == "Admin":
+                        admin.admin_login()
                     else:
-                        pass
+                        student.student_login()
                     flag = True
             if not flag:
                 response = messagebox.showerror("ERROR!", "Username or Password is Incorrect")
@@ -59,7 +63,7 @@ def main_login():
         pswrd = Entry(root, width=15, font=("Century", 10))
         pswrd.grid(row=2, column=1, padx=5)
 
-    root1 = tk.Tk()  # Tk is used to create a main window
+    root1 = Tk()  # Tk is used to create a main window
     root1.title("H.C.E.T Syndicate School Portal")
     root1.geometry("300x300")
     root1['background'] = "#5E889F"  # HexDecimal colour code
