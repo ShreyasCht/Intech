@@ -1,4 +1,5 @@
 # Intech
+PyCharm and MySQL used
 Username is 0 and password is percy for both admin and student portal
 ![image](https://user-images.githubusercontent.com/105714329/174122099-ddf88d30-c65a-4098-a6a3-76da16dda452.png)
 ![image](https://user-images.githubusercontent.com/105714329/174122354-885f0341-7420-4c36-bfcf-d657b56c704b.png)
