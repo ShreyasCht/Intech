@@ -1,4 +1,4 @@
-from tkinter import Toplevel, LabelFrame, Label, Entry, Button
+from tkinter import Toplevel, LabelFrame, Label, Entry, Button, E
 
 
 def admin_login():
@@ -78,10 +78,6 @@ def admin_login():
                 response = messagebox.showerror("WARNING!", "Homework Name Can't Be Left Empty")
                 Adder.lift()
                 return ()
-            query = "Insert into assignment values('{}', '{}', {})"\
-            .format(b0, b1, b2)
-            cur.execute(query)
-            connection.commit()
             Adder.destroy()
             response = messagebox.showinfo("SUCCESSFUL!", "Record Added Successfully")
 
@@ -98,15 +94,6 @@ def admin_login():
         hw_name.grid(row=1, column=1, padx=5)
         classes_assigned = Entry(frame_a, width=15, font=("Century", 10))
         classes_assigned.grid(row=2, column=1, padx=5)
-
-        # Insert Homework id Automatically
-        cur.execute("select hw_id from users")
-        rows = cur.fetchall()
-        if len(rows) == 0:
-            hw_id.insert(0, 1)
-        else:
-            hw_id.insert(0, int(rows[-1][0]) + 1)
-        hw_id.config(state="disabled")
 
         submit_btn = Button(frame_a, text="Submit", command=submit, width=10, font=("Times New Roman", 12, "bold"))
         submit_btn.grid(row=4, column=3, sticky=E)
@@ -137,7 +124,14 @@ def admin_login():
             .grid(row=0, column=2, padx=5, pady=5)
 
     def p_a_hw():
-        pass
+        """Function To Show All Records Of Assignment table"""
+        cur.execute("select * from assignment")
+        result = cur.fetchall()
+        connection.commit()
+        for row in result:
+            print(row)
+            print("/n")
+        cur.close()
 
     def c_a_hw():
         pass
