@@ -1,5 +1,4 @@
 import mysql.connector as ms
-# import tkinter as tk
 from tkinter import ttk, messagebox
 from tkinter import *
 import database_code
