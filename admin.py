@@ -317,7 +317,7 @@ def admin_login():
 
     def add_students():
         Adder = tk.Toplevel()
-        Adder.title("Assign Homework")
+        Adder.title("Add Student")
         Adder.geometry("620x340")
         frame_a = tk.LabelFrame(Adder, text="Enter Details", padx="20", pady=20, font=("Verdana", 10, "bold"))
         frame_a.grid(row=0, column=0, padx=10, pady=10)

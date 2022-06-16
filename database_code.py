@@ -9,10 +9,10 @@ def database_creation(database_name='s_m_s'):
         cur1.execute("create database if not exists {}".format(database_name))
         cur1.execute("use {}".format(database_name))
         cur1.execute("create table if not exists staff(\
-                     staff_id integer(5) primary key,\
+                     staff_id integer primary key,\
                      name varchar(50) not null,\
-                     phone integer(10) not null,\
-                     class_teacher varchar(1) not null,\
+                     phone bigint not null,\
+                     class_teacher varchar(3) not null,\
                      subject varchar(10) not null,\
                      address varchar(80) not null,\
                      email_id varchar(60) not null,\
@@ -20,13 +20,13 @@ def database_creation(database_name='s_m_s'):
                      dob date not null)")
 
         cur1.execute("create table if not exists student(\
-                     admn_no integer(5) primary key,\
+                     admn_no integer primary key,\
                      name varchar(40) not null,\
-                     gender char(1) not null,\
-                     class_section char(3) not null,\
+                     gender char(6) not null,\
+                     class_section char(5) not null,\
                      f_name varchar(40) not null,\
                      m_name varchar(40) not null,\
-                     mobile integer(10) not null,\
+                     mobile bigint not null,\
                      email_id varchar(50) not null,\
                      d_o_b date not null,\
                      aadhar varchar(12) not null,\
@@ -45,7 +45,7 @@ def database_creation(database_name='s_m_s'):
                      classes_assigned varchar(100) not null)")
 
         cur1.execute("create table if not exists report_card(\
-                    adm_no integer(5) primary key,\
+                    adm_no integer primary key,\
                     name varchar(40) not null,\
                     class_section char(3) not null,\
                     p_marks int(2) not null,\
